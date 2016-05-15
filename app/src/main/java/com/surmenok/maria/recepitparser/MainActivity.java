@@ -69,20 +69,19 @@ public class MainActivity extends Activity {
     public void onClickDownload(View view) {
         String str = "";
 
-        SQLiteOpenHelper receiptParserDataaseHelper = new ReceiptParserDatabaseHelper(this);
+        SQLiteOpenHelper receiptParserDatabaseHelper = new ReceiptParserDatabaseHelper(this);
 
         //read values from db
         try {
-            SQLiteDatabase db = receiptParserDataaseHelper.getReadableDatabase();
-            Cursor cursor = db.query("PURCHASES", new String[] {"DATE", "NAME", "PRICE"},
+            SQLiteDatabase db = receiptParserDatabaseHelper.getReadableDatabase();
+            Cursor cursor = db.query("PURCHASE", new String[] {"DATE", "NAME", "PRICE"},
                     null, null, null, null, null);
 
             while (cursor.moveToNext()) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(cursor.getLong(0));
-                String dateStr = 1 + calendar.get(Calendar.MONTH) + "/"
-                        + calendar.get(Calendar.DAY_OF_MONTH) + "/"
-                        + calendar.get(Calendar.YEAR);
+                String dateStr = String.format("%02d/%02d/%4d", (1 + calendar.get(Calendar.MONTH)),
+                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR));
 
                 str = str + dateStr + ", " + cursor.getString(1) + ", " + cursor.getDouble(2) + "\n";
             }
