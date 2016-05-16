@@ -30,7 +30,7 @@ public class PreviewActivity extends Activity {
     public static final String RESULT_MESSAGE = "result";
     private static int DATE_PICKER_ID = 1;
 
-    private Calendar calendar2;
+    private Calendar calendar;
     private DatePicker datePicker;
     private int year, month, day;
     private long milliseconds;
@@ -48,11 +48,11 @@ public class PreviewActivity extends Activity {
         processData(messageText);
 
         //set date to button
-        calendar2 = Calendar.getInstance();
-        year = calendar2.get(Calendar.YEAR);
-        month = calendar2.get(Calendar.MONTH);
-        day = calendar2.get(Calendar.DAY_OF_MONTH);
-        milliseconds = calendar2.getTimeInMillis();
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        milliseconds = calendar.getTimeInMillis();
         showDate();
 
         addElementsToLayout();
@@ -166,7 +166,6 @@ public class PreviewActivity extends Activity {
             // Give button an ID
             btn.setId(i + 1);
             btn.setText("X");
-            //btn.setBackgroundColor(Color.RED);
             // set the layoutParams on the button
             btn.setLayoutParams(params);
             final int index = i;
@@ -247,8 +246,8 @@ public class PreviewActivity extends Activity {
             year = arg1;
             month = arg2;
             day = arg3;
-            calendar2.set(arg1, arg2, arg3);
-            milliseconds = calendar2.getTimeInMillis();
+            calendar.set(arg1, arg2, arg3);
+            milliseconds = calendar.getTimeInMillis();
             showDate();
         }
     };
@@ -270,13 +269,6 @@ public class PreviewActivity extends Activity {
 
         SQLiteOpenHelper receiptParserDatabaseHelper = new ReceiptParserDatabaseHelper(this);
         ContentValues purchaseValues = new ContentValues();
-
-//        //Retrieve date of purchases
-//        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
-//        long milliseconds = calendar.getTimeInMillis();
-//        Log.i("Date in millliseconds: ", milliseconds + "");
 
         try {
             SQLiteDatabase db = receiptParserDatabaseHelper.getWritableDatabase();

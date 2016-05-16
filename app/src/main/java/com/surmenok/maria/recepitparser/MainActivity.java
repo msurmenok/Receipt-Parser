@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static android.os.Environment.getExternalStorageState;
+
 public class MainActivity extends Activity {
     public static final String FILE_NAME = "temp.jpg";
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -90,7 +92,9 @@ public class MainActivity extends Activity {
 
             //write data to csv file
             String filename = "data.csv";
-            File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
+            String log = getExternalStorageState();
+            File fileLocation = new File(Environment.getExternalStorageDirectory(), filename);
+            fileLocation.createNewFile();
 
             FileOutputStream out = new FileOutputStream(fileLocation);
             OutputStreamWriter osw = new OutputStreamWriter(out);
